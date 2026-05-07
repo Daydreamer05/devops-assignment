@@ -117,6 +117,14 @@ kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 8080:80
 - **Username:** `admin`
 - **Password:** `admin123` *(configured in `main.tf`)*
 
+### 3. Access Prometheus
+If you need to access the raw Prometheus UI directly to query metrics:
+
+```bash
+kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090:9090
+```
+- Open your browser to: `http://localhost:9090`
+
 ---
 
 ## Cleanup
