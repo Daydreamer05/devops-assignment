@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hello-world.fullname" . }}
+  labels:
+    app: {{ include "hello-world.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "hello-world.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "hello-world.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "-text={{ .Values.textResponse }}"
+          ports:
+            - name: http
+              containerPort: 5678
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

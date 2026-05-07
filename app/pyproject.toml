@@ -1,0 +1,10 @@
+[project]
+name = "hello-world"
+version = "0.1.0"
+description = "hello world microservice"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.1",
+    "uvicorn>=0.46.0",
+]

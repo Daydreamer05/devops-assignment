@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: kpcharan/devops-assignment
+  pullPolicy: IfNotPresent
+  tag: "devops-assigment"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
