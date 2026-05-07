@@ -110,6 +110,7 @@ resource "helm_release" "kube_prometheus_stack" {
   chart      = "kube-prometheus-stack"
   namespace  = kubernetes_namespace_v1.monitoring.metadata[0].name
   version    = "51.3.0"
+  timeout    = 600
 
   values = [
     yamlencode({
