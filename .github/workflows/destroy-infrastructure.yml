@@ -1,11 +1,16 @@
-name: Deploy Infrastructure
+name: Destroy Infrastructure
 
 on:
   workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: 'Type "destroy" to confirm you want to delete the infrastructure'
+        required: true
+        default: ''
 
 jobs:
-  deploy-terraform:
-    name: Deploy Terraform
+  destroy-terraform:
+    name: Destroy Terraform
     runs-on: ubuntu-latest
     
     defaults:
@@ -13,6 +18,13 @@ jobs:
         working-directory: terraform
 
     steps:
+      - name: Check Confirmation
+        run: |
+          if [ "${{ github.event.inputs.confirm_destroy }}" != "destroy" ]; then
+            echo "Confirmation failed. You must type 'destroy'."
+            exit 1
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -29,9 +41,5 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan -var-file="global.tfvars"
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/master'
-        run: terraform apply -var-file="global.tfvars" -auto-approve
+      - name: Terraform Destroy
+        run: terraform destroy -var-file="global.tfvars" -auto-approve

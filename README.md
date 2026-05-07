@@ -14,6 +14,7 @@ This project sets up an Amazon EKS cluster using Terraform, deploys a "Hello Wor
 This repository includes two independent GitHub Actions workflows:
 1. **Deploy Infrastructure**: Deploys the EKS cluster and VPC via Terraform.
 2. **Deploy Application**: Builds the Docker image and deploys the Helm chart to EKS.
+3. **Destroy Infrastructure**: (Manual only) Destroys the EKS cluster and VPC to save costs.
 
 To use these workflows, configure the following secrets in your GitHub repository:
 - `AWS_ACCESS_KEY_ID`

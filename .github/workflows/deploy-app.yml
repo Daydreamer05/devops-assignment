@@ -1,12 +1,6 @@
 name: Deploy Application
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'app/**'
-      - 'helm/**'
   workflow_dispatch:
 
 jobs:
